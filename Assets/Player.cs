@@ -39,7 +39,7 @@ public class Player : MonoBehaviour
     }
     private void Update()
     {
-        _isGrounded = Physics2D.Raycast(_rb.position, Vector2.down, _playerHeight / 2 + 0.2f, _GroundLayer);
+        _isGrounded = Physics2D.Raycast(_rb.position, -transform.up, _playerHeight / 2 + 0.2f, _GroundLayer);
         _moveDirection = moveAction.ReadValue<Vector2>();
         if (jumpAction.IsPressed() && _isGrounded && _readyToJumpp )
         {
@@ -60,7 +60,7 @@ public class Player : MonoBehaviour
     }
     void Move()
     {
-        _rb.AddForce(_moveDirection.normalized * _moveSpeed, ForceMode2D.Force);
+        _rb.AddForce(transform.right * _moveDirection.normalized.x * _moveSpeed, ForceMode2D.Force);
         SpeedControl();
     }
     void SpeedControl()
